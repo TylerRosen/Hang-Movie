@@ -1,3 +1,8 @@
-.container {
+.container,
+.game {
     text-align: center;
 }
+
+/*.guesses {
+    float: left;
+}*/

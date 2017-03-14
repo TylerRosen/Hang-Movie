@@ -7,5 +7,9 @@ CREATE TABLE users (
     username varchar(230) NOT NULL,
     email varchar(230) NOT NULL,
     password_hash varchar(230) NOT NULL,
-)
+);
 
+CREATE TABLE scores (
+    id INT AUTO_INCREMENT NOT NULL,
+    
+)
