@@ -51,37 +51,37 @@
 var movieQuotes = [
     {
         movie: "There Will Be Blood",
-        quote: "I drink your milkshake! I drink it up!"
+        quote: "Test"//"I drink your milkshake! I drink it up!"
     },
-    {
-        movie: "Gone with the Wind",
-        quote: "Frankly, my dear, I don't give a damn"
-    },
+    // {
+    //     movie: "Gone with the Wind",
+    //     quote: "Frankly, my dear, I don't give a damn"
+    // },
 
-    {
-        movie: "The Godfather",
-        quote: "Leave the gun. Take the cannoli"
-    },
+    // {
+    //     movie: "The Godfather",
+    //     quote: "Leave the gun. Take the cannoli"
+    // },
 
-    {
-        movie: "Robocop",
-        quote: "I'd buy that for a dollar!"
-    },
+    // {
+    //     movie: "Robocop",
+    //     quote: "I'd buy that for a dollar!"
+    // },
 
-    {
-        movie: "Network",
-        quote: "I'm mad as hell, and I'm not going to take this anymore!"
-    },
+    // {
+    //     movie: "Network",
+    //     quote: "I'm mad as hell, and I'm not going to take this anymore!"
+    // },
 
-    {
-        movie: "Airplane",
-        quote: "I am serious, and don't call me Shirley"
-    },
+    // {
+    //     movie: "Airplane",
+    //     quote: "I am serious, and don't call me Shirley"
+    // },
 
-    {
-        movie: "Monty Python and the Holy Grail",
-        quote: "Are you suggesting coconuts migrate?"
-    },
+    // {
+    //     movie: "Monty Python and the Holy Grail",
+    //     quote: "Are you suggesting coconuts migrate?"
+    // },
 
 
 ];
@@ -110,8 +110,10 @@ guesses = 10;
 
 $("#start").on("click", function () {
 
+    // Starts Game
     function startGame() {
 
+        // Hides and shows buttons
         $(".game").show();
         $("#start").hide();
         $('#displayHint').show();
@@ -126,6 +128,8 @@ $("#start").on("click", function () {
 
         });
 
+        // Chooses random word
+
         chosen = movieQuotes[Math.floor(Math.random() * movieQuotes.length)];
         letters = chosen.quote.split("");
 
@@ -135,6 +139,7 @@ $("#start").on("click", function () {
         //     }
         // }
 
+        // Appends word to page
         $('#movie').append(chosen.movie)
         blanks = letters.length;
 
@@ -143,6 +148,8 @@ $("#start").on("click", function () {
         wrongGuesses = [];
         var blanksAndSuccesses = [];
 
+        // Displays word as blanks
+
         for (var i = 0; i < blanks; i++) {
             blanksAndSuccesses.push("_");
 
@@ -150,8 +157,7 @@ $("#start").on("click", function () {
 
         $("#wordGoesHere").text(blanksAndSuccesses.join(" "));
         $("#guessesLeft").append(guesses);
-        $("#wrong").append(wrongGuesses);
-        $("#total").append(score);
+
 
 
         console.log(chosen);
@@ -161,25 +167,95 @@ $("#start").on("click", function () {
 
     };
 
+    // Checks if letter is in words
+
     function checkLetters(letter) {
 
         var letterInWord = false;
 
-        for (var i = 0; i <blanks; i++) {
-            if (letters[i] == letter) {
+        for (var i = 0; i < blanks; i++) {
+            if (chosen.quote[i] == letter) {
                 letterInWord = true;
             };
         };
+
+        if (letterInWord) {
+            for (var i = 0; i < blanks; i++) {
+                if (chosen.quote[i] == letter) {
+                    blanksAndSuccesses[i] = letter;
+
+                    $("#wordGoesHere").text(blanksAndSuccesses.join(" "));
+                };
+            };
+
+        } else {
+            wrongGuesses.push(letter);
+            guesses--;
+
+            $("#wrong").text(wrongGuesses.join(" "));
+            $("#guessesLeft").text(guesses);
+        }
+
+        console.log(blanksAndSuccesses);
+
+    };
+
+    // Ends the round
+
+    function endRound() {
+
+        if (letters.toString() == blanksAndSuccesses.toString()) {
+            wins++;
+
+            console.log(wins)
+            startGame();
+
+        } else if (guesses == 0) {
+            losses++;
+
+            console.log(losses);
+
+            startGame();
+        }
+
+        if (guesses == 10) {
+            score + 50
+        } else if (guesses == 9) {
+            scores + 45
+        } else if (guesses == 8) {
+            scores + 40
+        } else if (guesses == 7) {
+            scores + 35
+        } else if (guesses == 6) {
+            scores + 30
+        } else if (guesses == 5) {
+            scores + 25
+        } else if (guesses == 4) {
+            scores + 20
+        } else if (guesses == 3) {
+            scores + 15
+        } else if (guesses == 2) {
+            scores + 10
+        } else if (guesses == 1) {
+            scores + 5
+        }
+
+        $("#total").append(score);
+
     };
 
     startGame();
 
-    $(document).keypress(function(e) {
+    // Caputures entered key
+
+    $(document).keypress(function (e) {
         var letterGuessed = String.fromCharCode(e.keyCode);
         checkLetters(letterGuessed);
 
         console.log(letterGuessed);
     });
+
+    endRound();
 
 });
 
