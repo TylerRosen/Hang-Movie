@@ -93,7 +93,7 @@ var blanksAndSuccesses = [];
 
 var wrongGuesses = [];
 
-var score = "";
+var score = 0;
 var wins = 0;
 var losses = 0;
 var guesses = 10;
@@ -129,6 +129,12 @@ $("#start").on("click", function () {
         chosen = movieQuotes[Math.floor(Math.random() * movieQuotes.length)];
         letters = chosen.quote.split("");
 
+        //  for (var i = 0; i>letters.length; i++) {
+        //     if (letters[i] === " ") {
+        //         console.log("hi");
+        //     }
+        // }
+
         $('#movie').append(chosen.movie)
         blanks = letters.length;
 
@@ -137,10 +143,15 @@ $("#start").on("click", function () {
         wrongGuesses = [];
         var blanksAndSuccesses = [];
 
-        for (var i = 0; i < blanks, i++) {
-            blanksAndSuccesses[i].push("_");
+        for (var i = 0; i < blanks; i++) {
+            blanksAndSuccesses.push("_");
 
         }
+
+        $("#wordGoesHere").text(blanksAndSuccesses.join(" "));
+        $("#guessesLeft").append(guesses);
+        $("#wrong").append(wrongGuesses);
+        $("#total").append(score);
 
 
         console.log(chosen);
@@ -150,7 +161,25 @@ $("#start").on("click", function () {
 
     };
 
+    function checkLetters(letter) {
+
+        var letterInWord = false;
+
+        for (var i=0; i> blanks.length; i++) {
+            if (chosen[i] == letter) {
+                letterInWord = true;
+            }
+        }
+    }
+
     startGame();
+
+    $(document).keypress(function(e) {
+        var lettersGuessed = String.fromCharCode(event.keyCode);
+        checkLetters(lettersGuessed);
+
+        console.log(lettersGuessed);
+    });
 
 });
 
