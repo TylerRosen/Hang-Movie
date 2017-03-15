@@ -165,23 +165,24 @@ $("#start").on("click", function () {
 
         var letterInWord = false;
 
-        for (var i=0; i> blanks.length; i++) {
-            if (chosen[i] == letter) {
+        for (var i = 0; i <blanks; i++) {
+            if (letters[i] == letter) {
                 letterInWord = true;
-            }
-        }
-    }
+            };
+        };
+    };
 
     startGame();
 
     $(document).keypress(function(e) {
-        var lettersGuessed = String.fromCharCode(event.keyCode);
-        checkLetters(lettersGuessed);
+        var letterGuessed = String.fromCharCode(e.keyCode);
+        checkLetters(letterGuessed);
 
-        console.log(lettersGuessed);
+        console.log(letterGuessed);
     });
 
 });
+
 
 // module.exports = lyrics;
 module.exports = movieQuotes;
