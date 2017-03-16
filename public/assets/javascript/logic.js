@@ -50,7 +50,7 @@
 
 var movieQuotes = [
     {
-        movie: "There Will Be Blood",
+        movie: "Test",//"There Will Be Blood",
         quote: "Test"//"I drink your milkshake! I drink it up!"
     },
     // {
@@ -101,7 +101,7 @@ var guesses = 10;
 // ---------------------------------------------------------------------------
 
 $('.game').hide();
-$('#highscore').hide();
+$('#highScore').hide();
 $('#displayHint').hide();
 
 guesses = 10;
@@ -119,14 +119,14 @@ $("#start").on("click", function () {
         $('#displayHint').show();
 
         $("#score").on("click", function () {
-            $("#highscore").show();
+            $("#highScore").show();
             $("#score").hide();
         });
 
-        $("#displayHint").on("click", function () {
-            $('#displayHint').hide();
+        // $("#displayHint").on("click", function () {
+        //     $('#displayHint').hide();
 
-        });
+        // });
 
         // Chooses random word
 
@@ -153,17 +153,17 @@ $("#start").on("click", function () {
         for (var i = 0; i < blanks; i++) {
             blanksAndSuccesses.push("_");
 
-        }
+        };
 
         $("#wordGoesHere").text(blanksAndSuccesses.join(" "));
-        $("#guessesLeft").append(guesses);
+        $("#numGuesses").append(guesses);
 
 
 
         console.log(chosen);
         console.log(letters);
         console.log(blanks);
-        console.log(blanksAndSuccesses);
+        console.log(blanksAndSuccesses.join(" "));
 
     };
 
@@ -192,11 +192,10 @@ $("#start").on("click", function () {
             wrongGuesses.push(letter);
             guesses--;
 
-            $("#wrong").text(wrongGuesses.join(" "));
-            $("#guessesLeft").text(guesses);
+            $("#numGuesses").text(guesses);
         }
 
-        console.log(blanksAndSuccesses);
+        console.log(blanksAndSuccesses.join(" "));
 
     };
 
@@ -204,49 +203,52 @@ $("#start").on("click", function () {
 
     function endRound() {
 
-        if (letters.toString() == blanksAndSuccesses.toString()) {
-            wins++;
+        if (blanksAndSuccesses == "Test") {//(letters.toString() == blanksAndSuccesses.toString()) {
+            console.log("hello");
+        };
+        
+        //     wins++;
 
-            console.log(wins)
-            startGame();
+        //     console.log(wins)
+        //     startGame();
 
-        } else if (guesses == 0) {
-            losses++;
+        // } else if (guesses == 0) {
+        //     losses++;
 
-            console.log(losses);
+        //     console.log(losses);
 
-            startGame();
-        }
+        //     startGame();
+        // }
 
-        if (guesses == 10) {
-            score + 50
-        } else if (guesses == 9) {
-            scores + 45
-        } else if (guesses == 8) {
-            scores + 40
-        } else if (guesses == 7) {
-            scores + 35
-        } else if (guesses == 6) {
-            scores + 30
-        } else if (guesses == 5) {
-            scores + 25
-        } else if (guesses == 4) {
-            scores + 20
-        } else if (guesses == 3) {
-            scores + 15
-        } else if (guesses == 2) {
-            scores + 10
-        } else if (guesses == 1) {
-            scores + 5
-        }
+        // if (guesses == 10) {
+        //     score + 50
+        // } else if (guesses == 9) {
+        //     scores + 45
+        // } else if (guesses == 8) {
+        //     scores + 40
+        // } else if (guesses == 7) {
+        //     scores + 35
+        // } else if (guesses == 6) {
+        //     scores + 30
+        // } else if (guesses == 5) {
+        //     scores + 25
+        // } else if (guesses == 4) {
+        //     scores + 20
+        // } else if (guesses == 3) {
+        //     scores + 15
+        // } else if (guesses == 2) {
+        //     scores + 10
+        // } else if (guesses == 1) {
+        //     scores + 5
+        // }
 
-        $("#total").append(score);
+        // $("#total").append(score);
 
     };
 
     startGame();
 
-    // Caputures entered key
+    // Captures entered key
 
     $(document).keypress(function (e) {
         var letterGuessed = String.fromCharCode(e.keyCode);
