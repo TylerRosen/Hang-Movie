@@ -53,10 +53,11 @@ var movieQuotes = [
         movie: "Test",//"There Will Be Blood",
         quote: "Test"//"I drink your milkshake! I drink it up!"
     },
-    // {
+    {   movie: "Test 2: Test Harder",
+        quote: "Test Again",
     //     movie: "Gone with the Wind",
     //     quote: "Frankly, my dear, I don't give a damn"
-    // },
+    },
 
     // {
     //     movie: "The Godfather",
@@ -108,7 +109,7 @@ guesses = 10;
 
 // Displays game when clicking button
 
-$("#start").on("click", function () {
+// $("#start").on("click", function () {
 
     // Starts Game
     function startGame() {
@@ -130,7 +131,9 @@ $("#start").on("click", function () {
 
         // Chooses random word
 
-        chosen = movieQuotes[Math.floor(Math.random() * movieQuotes.length)];
+        var randomIndex = Math.floor( Math.random() * movieQuotes.length );
+
+        chosen = movieQuotes[randomIndex];
         letters = chosen.quote.split("");
 
         //  for (var i = 0; i>letters.length; i++) {
@@ -259,7 +262,7 @@ $("#start").on("click", function () {
 
     endRound();
 
-});
+// });
 
 
 // module.exports = lyrics;
