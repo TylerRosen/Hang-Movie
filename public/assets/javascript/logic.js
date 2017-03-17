@@ -155,41 +155,41 @@ function startGame() {
 
 };
 
-    function displayBlanks() {
+function displayBlanks() {
 
-        if (chosen.indexOf(" ") >= 0) {
-            blanksAndSuccesses.push(" ");
+    if (chosen.indexOf(" ") >= 0) {
+        blanksAndSuccesses.push(" ");
 
-            for (var i = 0; i < chosen.length; i++) {
-                if (chosen[i] == " ") {
-                    initialDisplay += " ";
-                }
-                else if (blanksAndSuccesses.indexOf(chosen[i]) >= 0) {
-                    initialDisplay += chosen[i];
-                } else {
-                    initialDisplay += " _ ";
-                }
+        for (var i = 0; i < chosen.length; i++) {
+            if (chosen[i] == " ") {
+                initialDisplay += "&nbsp;&nbsp;&nbsp;";
             }
-            $('#wordGoesHere').html(initialDisplay);
-        } else {
-            for (var i = 0; i < chosen.length; i++) {
+            else if (blanksAndSuccesses.indexOf(chosen[i]) >= 0) {
+                initialDisplay += chosen[i];
+            } else {
                 initialDisplay += " _ ";
             }
-
-            $('#wordGoesHere').html(initialDisplay);
+        }
+        $('#wordGoesHere').html(initialDisplay);
+    } else {
+        for (var i = 0; i < chosen.length; i++) {
+            initialDisplay += " _ ";
         }
 
-    };
+        $('#wordGoesHere').html(initialDisplay);
+    }
 
-    // $("#wordGoesHere").text(blanksAndSuccesses.join(" "));
-    $("#numGuesses").append(guesses);
+};
+
+// $("#wordGoesHere").text(blanksAndSuccesses.join(" "));
+$("#numGuesses").append(guesses);
 
 
 
-    console.log(chosen);
-    console.log(letters);
-    console.log(blanks);
-    console.log(blanksAndSuccesses);
+console.log(chosen);
+console.log(letters);
+console.log(blanks);
+console.log(blanksAndSuccesses);
 
 
 // Checks if letter is in words
@@ -287,12 +287,15 @@ $(document).keyup(function (e) {
     var keyPressed = e.key; //this is a letter
 
     if (chosen.indexOf(keyPressed) >= 0) {
-        guesses.push(keyPressed);
+        blanksAndSuccesses.push(keyPressed);
 
         initialDisplay = "";
 
         for (var i = 0; i < chosen.length; i++) {
-            if (guesses.indexOf(chosen[i]) >= 0) {
+            if (chosen[i] == " ") {
+                initialDisplay += "&nbsp;&nbsp;&nbsp;";
+
+            } else if (blanksAndSuccesses.indexOf(chosen[i]) >= 0) {
                 initialDisplay += chosen[i];
             } else {
                 initialDisplay += " _ ";
