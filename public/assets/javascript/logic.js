@@ -50,39 +50,38 @@
 
 var movieQuotes = [
     {
-        movie: "Test",//"There Will Be Blood",
-        quote: "Test"//"I drink your milkshake! I drink it up!"
+        movie: "There Will Be Blood",
+        quote: "I drink your milkshake! I drink it up!"
     },
-    {   movie: "Test 2: Test Harder",
-        quote: "Test Again",
-    //     movie: "Gone with the Wind",
-    //     quote: "Frankly, my dear, I don't give a damn"
+    {
+        movie: "Gone with the Wind",
+        quote: "Frankly, my dear, I don't give a damn"
     },
 
-    // {
-    //     movie: "The Godfather",
-    //     quote: "Leave the gun. Take the cannoli"
-    // },
+    {
+        movie: "The Godfather",
+        quote: "Leave the gun. Take the cannoli"
+    },
 
-    // {
-    //     movie: "Robocop",
-    //     quote: "I'd buy that for a dollar!"
-    // },
+    {
+        movie: "Robocop",
+        quote: "I'd buy that for a dollar!"
+    },
 
-    // {
-    //     movie: "Network",
-    //     quote: "I'm mad as hell, and I'm not going to take this anymore!"
-    // },
+    {
+        movie: "Network",
+        quote: "I'm mad as hell, and I'm not going to take this anymore!"
+    },
 
-    // {
-    //     movie: "Airplane",
-    //     quote: "I am serious, and don't call me Shirley"
-    // },
+    {
+        movie: "Airplane",
+        quote: "I am serious, and don't call me Shirley"
+    },
 
-    // {
-    //     movie: "Monty Python and the Holy Grail",
-    //     quote: "Are you suggesting coconuts migrate?"
-    // },
+    {
+        movie: "Monty Python and the Holy Grail",
+        quote: "Are you suggesting coconuts migrate?"
+    },
 
 
 ];
@@ -90,6 +89,7 @@ var movieQuotes = [
 var chosen = "";
 var letters = [];
 var blanks = 0;
+var initialDisplay = "";
 var blanksAndSuccesses = [];
 
 var wrongGuesses = [];
@@ -111,159 +111,206 @@ guesses = 10;
 
 // $("#start").on("click", function () {
 
-    // Starts Game
-    function startGame() {
+// Starts Game
+function startGame() {
 
-        // Hides and shows buttons
-        $(".game").show();
-        $("#start").hide();
-        $('#displayHint').show();
+    // Hides and shows buttons
+    $(".game").show();
+    $("#start").hide();
+    // $('#displayHint').show();
 
-        $("#score").on("click", function () {
-            $("#highScore").show();
-            $("#score").hide();
-        });
-
-        // $("#displayHint").on("click", function () {
-        //     $('#displayHint').hide();
-
-        // });
-
-        // Chooses random word
-
-        var randomIndex = Math.floor( Math.random() * movieQuotes.length );
-
-        chosen = movieQuotes[randomIndex];
-        letters = chosen.quote.split("");
-
-        //  for (var i = 0; i>letters.length; i++) {
-        //     if (letters[i] === " ") {
-        //         console.log("hi");
-        //     }
-        // }
-
-        // Appends word to page
-        $('#movie').append(chosen.movie)
-        blanks = letters.length;
-
-        // Resets values
-        guesses = 10;
-        wrongGuesses = [];
-        var blanksAndSuccesses = [];
-
-        // Displays word as blanks
-
-        for (var i = 0; i < blanks; i++) {
-            blanksAndSuccesses.push("_");
-
-        };
-
-        $("#wordGoesHere").text(blanksAndSuccesses.join(" "));
-        $("#numGuesses").append(guesses);
-
-
-
-        console.log(chosen);
-        console.log(letters);
-        console.log(blanks);
-        console.log(blanksAndSuccesses.join(" "));
-
-    };
-
-    // Checks if letter is in words
-
-    function checkLetters(letter) {
-
-        var letterInWord = false;
-
-        for (var i = 0; i < blanks; i++) {
-            if (chosen.quote[i] == letter) {
-                letterInWord = true;
-            };
-        };
-
-        if (letterInWord) {
-            for (var i = 0; i < blanks; i++) {
-                if (chosen.quote[i] == letter) {
-                    blanksAndSuccesses[i] = letter;
-
-                    $("#wordGoesHere").text(blanksAndSuccesses.join(" "));
-                };
-            };
-
-        } else {
-            wrongGuesses.push(letter);
-            guesses--;
-
-            $("#numGuesses").text(guesses);
-        }
-
-        console.log(blanksAndSuccesses.join(" "));
-
-    };
-
-    // Ends the round
-
-    function endRound() {
-
-        if (blanksAndSuccesses == "Test") {//(letters.toString() == blanksAndSuccesses.toString()) {
-            console.log("hello");
-        };
-        
-        //     wins++;
-
-        //     console.log(wins)
-        //     startGame();
-
-        // } else if (guesses == 0) {
-        //     losses++;
-
-        //     console.log(losses);
-
-        //     startGame();
-        // }
-
-        // if (guesses == 10) {
-        //     score + 50
-        // } else if (guesses == 9) {
-        //     scores + 45
-        // } else if (guesses == 8) {
-        //     scores + 40
-        // } else if (guesses == 7) {
-        //     scores + 35
-        // } else if (guesses == 6) {
-        //     scores + 30
-        // } else if (guesses == 5) {
-        //     scores + 25
-        // } else if (guesses == 4) {
-        //     scores + 20
-        // } else if (guesses == 3) {
-        //     scores + 15
-        // } else if (guesses == 2) {
-        //     scores + 10
-        // } else if (guesses == 1) {
-        //     scores + 5
-        // }
-
-        // $("#total").append(score);
-
-    };
-
-    startGame();
-
-    // Captures entered key
-
-    $(document).keypress(function (e) {
-        var letterGuessed = String.fromCharCode(e.keyCode);
-        checkLetters(letterGuessed);
-
-        console.log(letterGuessed);
+    $("#score").on("click", function () {
+        $("#highScore").show();
+        $("#score").hide();
     });
 
-    endRound();
+    // $("#displayHint").on("click", function () {
+    //     $('#displayHint').hide();
+
+    // });
+
+    // Chooses random word
+
+    var randomIndex = Math.floor(Math.random() * movieQuotes.length);
+
+    chosen = movieQuotes[randomIndex].quote;
+    letters = chosen.split("");
+
+    //  for (var i = 0; i>letters.length; i++) {
+    //     if (letters[i] === " ") {
+    //         console.log("hi");
+    //     }
+    // }
+
+    // Appends word to page
+    $('#movie').append(chosen.movie)
+    blanks = letters.length;
+
+    // Resets values
+    guesses = 10;
+    wrongGuesses = [];
+    var blanksAndSuccesses = [];
+
+    // Displays word as blanks
+
+};
+
+    function displayBlanks() {
+
+        if (chosen.indexOf(" ") >= 0) {
+            blanksAndSuccesses.push(" ");
+
+            for (var i = 0; i < chosen.length; i++) {
+                if (chosen[i] == " ") {
+                    initialDisplay += " ";
+                }
+                else if (blanksAndSuccesses.indexOf(chosen[i]) >= 0) {
+                    initialDisplay += chosen[i];
+                } else {
+                    initialDisplay += " _ ";
+                }
+            }
+            $('#wordGoesHere').html(initialDisplay);
+        } else {
+            for (var i = 0; i < chosen.length; i++) {
+                initialDisplay += " _ ";
+            }
+
+            $('#wordGoesHere').html(initialDisplay);
+        }
+
+    };
+
+    // $("#wordGoesHere").text(blanksAndSuccesses.join(" "));
+    $("#numGuesses").append(guesses);
+
+
+
+    console.log(chosen);
+    console.log(letters);
+    console.log(blanks);
+    console.log(blanksAndSuccesses);
+
+
+// Checks if letter is in words
+
+function checkLetters(letter) {
+
+    var letterInWord = false;
+
+    for (var i = 0; i < blanks; i++) {
+        if (chosen[i] == letter) {
+            letterInWord = true;
+        };
+    };
+
+    if (letterInWord) {
+        for (var i = 0; i < blanks; i++) {
+            if (chosen[i] == letter) {
+                blanksAndSuccesses[i] = letter;
+
+                $("#wordGoesHere").html(blanksAndSuccesses.join(" "));
+            };
+        };
+
+    } else {
+        wrongGuesses.push(letter);
+        guesses--;
+
+        $("#numGuesses").text(guesses);
+    }
+
+    console.log(blanksAndSuccesses.join(" "));
+
+};
+
+// Ends the round
+
+function endRound() {
+
+    if (blanksAndSuccesses == "Test") {//(letters.toString() == blanksAndSuccesses.toString()) {
+        console.log("hello");
+    };
+
+    //     wins++;
+
+    //     console.log(wins)
+    //     startGame();
+
+    // } else if (guesses == 0) {
+    //     losses++;
+
+    //     console.log(losses);
+
+    //     startGame();
+    // }
+
+    // if (guesses == 10) {
+    //     score + 50
+    // } else if (guesses == 9) {
+    //     scores + 45
+    // } else if (guesses == 8) {
+    //     scores + 40
+    // } else if (guesses == 7) {
+    //     scores + 35
+    // } else if (guesses == 6) {
+    //     scores + 30
+    // } else if (guesses == 5) {
+    //     scores + 25
+    // } else if (guesses == 4) {
+    //     scores + 20
+    // } else if (guesses == 3) {
+    //     scores + 15
+    // } else if (guesses == 2) {
+    //     scores + 10
+    // } else if (guesses == 1) {
+    //     scores + 5
+    // }
+
+    // $("#total").append(score);
+
+};
+
+startGame();
+displayBlanks();
+
+// Captures entered key
+
+// $(document).keypress(function (e) {
+//     var letterGuessed = String.fromCharCode(e.keyCode);
+//     checkLetters(letterGuessed);
+
+//     console.log(letterGuessed);
+// });
+
+$(document).keyup(function (e) {
+    var keyPressed = e.key; //this is a letter
+
+    if (chosen.indexOf(keyPressed) >= 0) {
+        guesses.push(keyPressed);
+
+        initialDisplay = "";
+
+        for (var i = 0; i < chosen.length; i++) {
+            if (guesses.indexOf(chosen[i]) >= 0) {
+                initialDisplay += chosen[i];
+            } else {
+                initialDisplay += " _ ";
+            }
+        }
+
+        $('#wordGoesHere').html(initialDisplay);
+
+    } else {
+        console.log('Wrong!!!')
+    }
+
+});
+
+endRound();
 
 // });
 
 
 // module.exports = lyrics;
-module.exports = movieQuotes;
+// module.exports = movieQuotes;
