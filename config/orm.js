@@ -1,87 +1,92 @@
-var bcrypt = require('bcryptjs');
-var express = require('express');
-var router  = express.Router();
-var mysql = require('mysql')
-var connection = require('../config/connection.js')
+// Import MySQL connection.
+var connection = require("../config/connection.js");
 
-//this is the users_controller.js file
-router.get('/new', function(req,res) {
-  res.render('users/new');
-});
+// Helper function for SQL syntax.
+function printQuestionMarks(num) {
+  var arr = [];
 
-router.get('/sign-in', function(req,res) {
-  res.render('users/sign_in');
-});
+  for (var i = 0; i < num; i++) {
+    arr.push("?");
+  }
 
-router.get('/sign-out', function(req,res) {
-  req.session.destroy(function(err) {
-     res.redirect('/scores')
-  })
-});
+  return arr.toString();
+}
 
-//if user trys to sign in with the wrong password or email tell them that on the page
-router.post('/login', function(req, res) {
-  
-  var query = "SELECT * FROM users WHERE email = ?";
+// Helper function for SQL syntax.
+function objToSql(ob) {
+  var arr = [];
 
-  connection.query(query, [ req.body.email ], function(err, response) {
-      if (response.length == 0){
-        res.redirect('/users/sign-in')
+  for (var key in ob) {
+    if (Object.hasOwnProperty.call(ob, key)) {
+      arr.push(key + "=" + ob[key]);
+    }
+  }
+
+  return arr.toString();
+}
+
+// Object for all our SQL statement functions.
+var orm = {
+  all: function(tableInput, cb) {
+    var queryString = "SELECT * FROM " + tableInput + ";";
+    connection.query(queryString, function(err, result) {
+      if (err) {
+        throw err;
+      }
+      cb(result);
+    });
+  },
+  create: function(table, cols, vals, cb) {
+    var queryString = "INSERT INTO " + table;
+
+    queryString += " (";
+    queryString += cols.toString();
+    queryString += ") ";
+    queryString += "VALUES (";
+    queryString += printQuestionMarks(vals.length);
+    queryString += ") ";
+
+    console.log(queryString);
+
+    connection.query(queryString, vals, function(err, result) {
+      if (err) {
+        throw err;
+      }
+      cb(result);
+    });
+  },
+  // An example of objColVals would be {name: panther, sleepy: true}
+  update: function(table, objColVals, condition, cb) {
+    var queryString = "UPDATE " + table;
+
+    queryString += " SET ";
+    queryString += objToSql(objColVals);
+    queryString += " WHERE ";
+    queryString += condition;
+
+    console.log(queryString);
+    connection.query(queryString, function(err, result) {
+      if (err) {
+        throw err;
       }
 
-        bcrypt.compare(req.body.password, response[0].password_hash, function(err, result) {
-            if (result == true){
+      cb(result);
+    });
+  },
+  delete: function(table, condition, cb) {
+    var queryString = "DELETE FROM " + table;
+    queryString += " WHERE ";
+    queryString += condition;
 
-              req.session.logged_in = true;
-              req.session.user_id = response[0].id;
-              req.session.user_email = response[0].email;
-              req.session.company = response[0].company;
-              req.session.username = response[0].username;
+    connection.query(queryString, function(err, result) {
+      if (err) {
+        throw err;
+      }
 
-              res.redirect('/scores');
-            }else{
-              res.redirect('/users/sign-in')
-            }
-        });
-  });
-});
+      cb(result);
+    });
+  }
+};
 
-router.post('/create', function(req,res) {
-  var query = "SELECT * FROM users WHERE email = ?"
-
-  connection.query(query, [ req.body.email ], function(err, response) {
-    console.log(response)
-    if (response.length > 0) {
-      res.send('we already have an email or username for this account')
-    }else{
-
-      bcrypt.genSalt(10, function(err, salt) {
-          //res.send(salt)
-          bcrypt.hash(req.body.password, salt, function(err, hash) {            
-            var query = "INSERT INTO users (username, email, password_hash) VALUES (?, ?, ?)"
-
-            connection.query(query, [ req.body.username, req.body.email, hash ], function(err, response) {
-
-              req.session.logged_in = true;
-
-              req.session.user_id = response.insertId; //only way to get id of an insert for the mysql npm package
-
-              var query = "SELECT * FROM users WHERE id = ?"
-              connection.query(query, [ req.session.user_id ], function(err, response) {
-                req.session.username = response[0].username;
-                req.session.user_email = response[0].email;
-                req.session.company = response[0].company;
-
-                res.redirect('/scores')
-              });
-            });
-          });
-      });
-
-    }
-  });
-
-
-});
-
-module.exports = router;
+// Export the orm object for the model (cat.js).
+module.exports = orm;

@@ -1,52 +1,52 @@
 //Global Variables
 // --------------------------------------------------------------------
 
-// var lyrics = [
-//     {
-//         song:"Protect Ya Neck",
-//         artist: "Wu Tang Clan",
-//         lyric:"I smoke on the mic like Smokin' Joen Frazier, the hell-raiser, raising Hell with the flavor"
-//     },
+var lyrics = [
+    {
+        song:"Protect Ya Neck",
+        artist: "Wu Tang Clan",
+        lyric:"I smoke on the mic like Smokin' Joen Frazier, the hell-raiser, raising Hell with the flavor"
+    },
 
-//     {
-//         song:"Bad Romance",
-//         artist: "Lady Gaga",
-//         lyric:"Rah, rah, ah, ah, ah, roma, roma, ma. Gaga, ooh, la, la... want your bad romance!"
-//     },
+    {
+        song:"Bad Romance",
+        artist: "Lady Gaga",
+        lyric:"Rah, rah, ah, ah, ah, roma, roma, ma. Gaga, ooh, la, la... want your bad romance!"
+    },
 
-//       {
-//         song:"Lose Yourself",
-//         artist: "Eminem",
-//         lyric:"There's vomit on his sweater already, mom's spaghetti!"
-//     },
+      {
+        song:"Lose Yourself",
+        artist: "Eminem",
+        lyric:"There's vomit on his sweater already, mom's spaghetti!"
+    },
 
-//     {
-//         song: "Square Hammer",
-//         artist: "Ghost",
-//         lyric: "Are you on the square? Are you on the level? Are you ready to swear right here, right now before the devil?"
-//     },
+    {
+        song: "Square Hammer",
+        artist: "Ghost",
+        lyric: "Are you on the square? Are you on the level? Are you ready to swear right here, right now before the devil?"
+    },
 
-//     {
-//         song:"Baby Got Back",
-//         artist: "Sir Mix-a-Lot",
-//         lyric: "I like big butts and I cannot lie. You other brothers can't deny",
-//     },
+    {
+        song:"Baby Got Back",
+        artist: "Sir Mix-a-Lot",
+        lyric: "I like big butts and I cannot lie. You other brothers can't deny",
+    },
 
-//      {
-//         song:"Du Hast",
-//         artist: "Rammstein",
-//         lyric:"Willst du, bis der Tod euch scheidet, treu ihr sein fur alle tage?",
-//     },
+     {
+        song:"Du Hast",
+        artist: "Rammstein",
+        lyric:"Willst du, bis der Tod euch scheidet, treu ihr sein fur alle tage?",
+    },
 
-//      {
-//         song:"Take on me",
-//         artist: "A-ha",
-//         lyric: "Take on me, take me on, I'll be gone in a day or two",
-//     },
+     {
+        song:"Take on me",
+        artist: "A-ha",
+        lyric: "Take on me, take me on, I'll be gone in a day or two",
+    },
 
 
 
-// ];
+];
 
 var movieQuotes = [
     {
@@ -144,12 +144,6 @@ $("#start").on("click", function () {
         chosen = movieQuotes[randomIndex].quote;
         letters = chosen.split("");
 
-        //  for (var i = 0; i>letters.length; i++) {
-        //     if (letters[i] === " ") {
-        //         console.log("hi");
-        //     }
-        // }
-
         // Appends word to page
         $('#movieGoesHere').html(movieQuotes[randomIndex].movie)
         console.log(movieQuotes[randomIndex].movie);
@@ -168,8 +162,8 @@ $("#start").on("click", function () {
                 blanksAndSuccesses.push("!");
             }
 
-            if (chosen.indexOf("'") >= 0) {
-                blanksAndSuccesses.push("'");
+            if (chosen.indexOf(".") >= 0) {
+                blanksAndSuccesses.push(".");
             }
 
             if (chosen.indexOf(",") >= 0) {
@@ -206,42 +200,6 @@ $("#start").on("click", function () {
         }
 
     };
-
-    // $("#wordGoesHere").text(blanksAndSuccesses.join(" "));
-
-
-    // Checks if letter is in words
-
-    // function checkLetters(letter) {
-
-    //     var letterInWord = false;
-
-    //     for (var i = 0; i < blanks; i++) {
-    //         if (chosen[i] == letter) {
-    //             letterInWord = true;
-    //         };
-    //     };
-
-    //     if (letterInWord) {
-    //         for (var i = 0; i < blanks; i++) {
-    //             if (chosen[i] == letter) {
-    //                 blanksAndSuccesses[i] = letter;
-
-    //                 $("#wordGoesHere").html(blanksAndSuccesses.join(" "));
-    //             };
-    //         };
-
-    //     } else {
-    //         wrongGuesses.push(letter);
-    //         guesses--;
-
-    //         $("#numGuesses").text(guesses);
-    //     }
-
-    //     console.log(blanksAndSuccesses.join(" "));
-
-    // };
-
     // Ends the round
 
     function endRound() {
@@ -262,7 +220,6 @@ $("#start").on("click", function () {
 
     startGame();
     displayBlanks();
-    // checkLetters();
 
     console.log(chosen);
     console.log(letters);
@@ -270,13 +227,6 @@ $("#start").on("click", function () {
     console.log(initialDisplay);
 
     // Captures entered key
-
-    // $(document).keypress(function (e) {
-    //     var letterGuessed = String.fromCharCode(e.keyCode);
-    //     checkLetters(letterGuessed);
-
-    //     console.log(letterGuessed);
-    // });
 
     $(document).keyup(function (e) {
         var keyPressed = e.key; //this is a letter
@@ -316,38 +266,36 @@ $("#start").on("click", function () {
 
                 if (guesses == 10) {
                     score += 50
-                    $("#total").html(score);
+                    $("#scoreGoesHere").html(score);
                     console.log("hello");
                 } else if (guesses == 9) {
                     score += 45
-                    $("#total").html(score);
+                    $("#scoreGoesHere").html(score);
                 } else if (guesses == 8) {
                     score += 40
-                    $("#total").html(score);
+                    $("#scoreGoesHere").html(score);
                 } else if (guesses == 7) {
                     score += 35
-                    $("#total").html(score);
+                    $("#scoreGoesHere").html(score);
                 } else if (guesses == 6) {
                     score += 30
-                    $("#total").html(score);
+                    $("#scoreGoesHere").html(score);
                 } else if (guesses == 5) {
                     score += 25
-                    $("#total").html(score);
+                    $("#scoreGoesHere").html(score);
                 } else if (guesses == 4) {
                     score += 20
-                    $("#total").html(score);
+                    $("#scoreGoesHere").html(score);
                 } else if (guesses == 3) {
                     score += 15
-                    $("#total").html(score);
+                    $("#scoreGoesHere").html(score);
                 } else if (guesses == 2) {
                     score += 10
-                    $("#total").html(score);
+                    $("#scoreGoesHere").html(score);
                 } else if (guesses == 1) {
                     score += 5
-                    $("#total").html(score);
+                    $("#scoreGoesHere").html(score);
                 }
-
-                $("#scoreGoesHere").html(score);
 
                 endRound();
             }
