@@ -92,6 +92,7 @@ var blanks = 0;
 var initialDisplay = "";
 var blanksAndSuccesses = [];
 
+var correctLetters = 0;
 var wrongGuesses = [];
 
 var score = 0;
@@ -101,9 +102,8 @@ var guesses = 10;
 
 // ---------------------------------------------------------------------------
 
-$('.game').hide();
-$('#highScore').hide();
-$('#displayHint').hide();
+// $('.game').hide();
+// $('#displayHint').hide();
 
 guesses = 10;
 
@@ -114,9 +114,16 @@ guesses = 10;
 // Starts Game
 function startGame() {
 
+     // Resets values
+    guesses = 10;
+    wrongGuesses = [];
+    var blanksAndSuccesses = [];
+
     // Hides and shows buttons
-    $(".game").show();
+    // $(".game").show();
     $("#start").hide();
+    $('#highScore').hide();
+
     // $('#displayHint').show();
 
     $("#score").on("click", function () {
@@ -143,13 +150,9 @@ function startGame() {
     // }
 
     // Appends word to page
-    $('#movie').append(chosen.movie)
+    $('#movie').append(movieQuotes[randomIndex].movie)
+    console.log(movieQuotes[randomIndex].movie);
     blanks = letters.length;
-
-    // Resets values
-    guesses = 10;
-    wrongGuesses = [];
-    var blanksAndSuccesses = [];
 
     // Displays word as blanks
 
@@ -159,6 +162,24 @@ function displayBlanks() {
 
     if (chosen.indexOf(" ") >= 0) {
         blanksAndSuccesses.push(" ");
+
+    if (chosen.indexOf("!") >= 0) {
+        blanksAndSuccesses.push("!");
+    }
+
+    if (chosen.indexOf("'") >=0) {
+        blanksAndSuccesses.push("'");
+    }
+
+     if (chosen.indexOf(",") >=0) {
+        blanksAndSuccesses.push(",");
+    }
+
+     if (chosen.indexOf("'") >=0) {
+        blanksAndSuccesses.push("'");
+    }
+
+
 
         for (var i = 0; i < chosen.length; i++) {
             if (chosen[i] == " ") {
@@ -185,50 +206,43 @@ function displayBlanks() {
 $("#numGuesses").append(guesses);
 
 
-
-console.log(chosen);
-console.log(letters);
-console.log(blanks);
-console.log(blanksAndSuccesses);
-
-
 // Checks if letter is in words
 
-function checkLetters(letter) {
+// function checkLetters(letter) {
 
-    var letterInWord = false;
+//     var letterInWord = false;
 
-    for (var i = 0; i < blanks; i++) {
-        if (chosen[i] == letter) {
-            letterInWord = true;
-        };
-    };
+//     for (var i = 0; i < blanks; i++) {
+//         if (chosen[i] == letter) {
+//             letterInWord = true;
+//         };
+//     };
 
-    if (letterInWord) {
-        for (var i = 0; i < blanks; i++) {
-            if (chosen[i] == letter) {
-                blanksAndSuccesses[i] = letter;
+//     if (letterInWord) {
+//         for (var i = 0; i < blanks; i++) {
+//             if (chosen[i] == letter) {
+//                 blanksAndSuccesses[i] = letter;
 
-                $("#wordGoesHere").html(blanksAndSuccesses.join(" "));
-            };
-        };
+//                 $("#wordGoesHere").html(blanksAndSuccesses.join(" "));
+//             };
+//         };
 
-    } else {
-        wrongGuesses.push(letter);
-        guesses--;
+//     } else {
+//         wrongGuesses.push(letter);
+//         guesses--;
 
-        $("#numGuesses").text(guesses);
-    }
+//         $("#numGuesses").text(guesses);
+//     }
 
-    console.log(blanksAndSuccesses.join(" "));
+//     console.log(blanksAndSuccesses.join(" "));
 
-};
+// };
 
 // Ends the round
 
 function endRound() {
 
-    if (blanksAndSuccesses == "Test") {//(letters.toString() == blanksAndSuccesses.toString()) {
+    if (correctLetters == chosen.length + 1) {
         console.log("hello");
     };
 
@@ -273,6 +287,13 @@ function endRound() {
 
 startGame();
 displayBlanks();
+// checkLetters();
+endRound();
+
+console.log(chosen);
+console.log(letters);
+console.log(blanks);
+console.log(initialDisplay);
 
 // Captures entered key
 
@@ -286,8 +307,17 @@ displayBlanks();
 $(document).keyup(function (e) {
     var keyPressed = e.key; //this is a letter
 
+    if (event.keyCode === 16) {
+
+        // prevent default behaviour
+        event.preventDefault();
+
+        return false;
+    }
+
     if (chosen.indexOf(keyPressed) >= 0) {
         blanksAndSuccesses.push(keyPressed);
+        console.log(blanksAndSuccesses)
 
         initialDisplay = "";
 
@@ -295,7 +325,7 @@ $(document).keyup(function (e) {
             if (chosen[i] == " ") {
                 initialDisplay += "&nbsp;&nbsp;&nbsp;";
 
-            } else if (blanksAndSuccesses.indexOf(chosen[i]) >= 0) {
+            }else if (blanksAndSuccesses.indexOf(chosen[i]) >= 0) {
                 initialDisplay += chosen[i];
             } else {
                 initialDisplay += " _ ";

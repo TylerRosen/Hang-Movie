@@ -6,3 +6,7 @@
 /*.guesses {
     float: left;
 }*/
+
+#highscore {
+    font-weight: bold;
+}
