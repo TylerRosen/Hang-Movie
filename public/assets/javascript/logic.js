@@ -107,6 +107,11 @@ $('#displayHint').hide();
 
 guesses = 10;
 
+$("#score").on("click", function () {
+    $("#highScore").show();
+    $("#score").hide();
+});
+
 // Displays game when clicking button
 
 $("#start").on("click", function () {
@@ -114,10 +119,10 @@ $("#start").on("click", function () {
     // Starts Game
     function startGame() {
 
-        // Resets values
-        // guesses = 10;
-        // wrongGuesses = [];
-        // var blanksAndSuccesses = [];
+        //Resets values
+        guesses = 10;
+        wrongGuesses = [];
+        var blanksAndSuccesses = [];
 
         // Hides and shows buttons
         $(".container").hide();
@@ -126,11 +131,6 @@ $("#start").on("click", function () {
         $('#highScore').hide();
 
         // $('#displayHint').show();
-
-        $("#score").on("click", function () {
-            $("#highScore").show();
-            $("#score").hide();
-        });
 
         // $("#displayHint").on("click", function () {
         //     $('#displayHint').hide();
@@ -151,11 +151,11 @@ $("#start").on("click", function () {
         // }
 
         // Appends word to page
-        $('#movie').append(movieQuotes[randomIndex].movie)
+        $('#movieGoesHere').html(movieQuotes[randomIndex].movie)
         console.log(movieQuotes[randomIndex].movie);
         blanks = letters.length;
 
-        $("#guessesLeft").append(guesses);
+        $("#wrongLetters").html(wrongGuesses);
 
     };
 
@@ -178,6 +178,10 @@ $("#start").on("click", function () {
 
             if (chosen.indexOf("'") >= 0) {
                 blanksAndSuccesses.push("'");
+            }
+
+            if (chosen.indexOf("?") >= 0) {
+                blanksAndSuccesses.push("?");
             }
 
 
@@ -240,10 +244,21 @@ $("#start").on("click", function () {
 
     // Ends the round
 
-    // function reset() {
+    function endRound() {
+
+        if (guesses == 0) {
+            losses++;
+
+            console.log(losses);
+
+            startGame();
+            // displayBlanks();
+
+            console.log(initialDisplay);
+        }
 
 
-    // };
+    };
 
     startGame();
     displayBlanks();
@@ -297,53 +312,63 @@ $("#start").on("click", function () {
                 wins++;
 
                 console.log(wins)
-                // startGame();
+                endRound();
 
                 if (guesses == 10) {
-                    score + 50
+                    score += 50
+                    $("#total").html(score);
+                    console.log("hello");
                 } else if (guesses == 9) {
-                    score + 45
+                    score += 45
+                    $("#total").html(score);
                 } else if (guesses == 8) {
-                    score + 40
+                    score += 40
+                    $("#total").html(score);
                 } else if (guesses == 7) {
-                    score + 35
+                    score += 35
+                    $("#total").html(score);
                 } else if (guesses == 6) {
-                    score + 30
+                    score += 30
+                    $("#total").html(score);
                 } else if (guesses == 5) {
-                    score + 25
+                    score += 25
+                    $("#total").html(score);
                 } else if (guesses == 4) {
-                    score + 20
+                    score += 20
+                    $("#total").html(score);
                 } else if (guesses == 3) {
-                    score + 15
+                    score += 15
+                    $("#total").html(score);
                 } else if (guesses == 2) {
-                    score + 10
+                    score += 10
+                    $("#total").html(score);
                 } else if (guesses == 1) {
-                    score + 5
+                    score += 5
+                    $("#total").html(score);
                 }
 
-                $("#total").append(score);
+                $("#scoreGoesHere").html(score);
+
+                endRound();
             }
 
-        } else if (guesses == 0) {
-            losses++;
+        } else {
 
-            console.log(losses);
-
-            // startGame();
-        }
-
-        else {
-
-            wrongGuesses.push(e);
+            wrongGuesses.push(keyPressed);
+            console.log(wrongGuesses);
             guesses--;
             $("#numGuesses").text(guesses);
+            $("#wrongLetters").append(keyPressed);
+
         }
+
+        endRound();
 
         $('#wordGoesHere').html(initialDisplay);
 
-    });
+        // endRound();
 
-    // endRound();
+    });
 
 });
 
