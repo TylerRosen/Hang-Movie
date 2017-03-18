@@ -5,8 +5,8 @@ var connection = mysql.createConnection({
   port: 3306,
   host: "localhost",
   user: "root",
-  password: "raiders76",
-  database: "game_db"
+  password: "root",
+  database: "hangman_db"
 });
 
 // Make connection.
