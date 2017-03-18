@@ -102,14 +102,14 @@ var guesses = 10;
 
 // ---------------------------------------------------------------------------
 
-// $('.game').hide();
-// $('#displayHint').hide();
+$('.game').hide();
+$('#displayHint').hide();
 
 guesses = 10;
 
 // Displays game when clicking button
 
-// $("#start").on("click", function () {
+$("#start").on("click", function () {
 
 // Starts Game
 function startGame() {
@@ -120,7 +120,8 @@ function startGame() {
     var blanksAndSuccesses = [];
 
     // Hides and shows buttons
-    // $(".game").show();
+    $(".container").hide();
+    $(".game").show();
     $("#start").hide();
     $('#highScore').hide();
 
@@ -332,6 +333,10 @@ $(document).keyup(function (e) {
             }
         }
 
+        if (initialDisplay.indexOf("_") == -1) {
+            console.log("You win!")
+        }
+
         $('#wordGoesHere').html(initialDisplay);
 
     } else {
@@ -342,7 +347,7 @@ $(document).keyup(function (e) {
 
 endRound();
 
-// });
+});
 
 
 // module.exports = lyrics;

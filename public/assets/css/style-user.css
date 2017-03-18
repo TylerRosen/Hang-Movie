@@ -1,3 +1,7 @@
+body {
+    background-image: url(../images/theater.jpg);
+}
+
 .container,
 .game {
     text-align: center;
@@ -9,4 +13,32 @@
 
 #highscore {
     font-weight: bold;
+}
+
+.container, {
+    width: 100px;
+    height: 300px;
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    margin: auto;
+}
+
+.container, .game {
+    width: 90%;
+    height: 80%;
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    margin: auto;
+}
+
+.guesses, #highScore {
+    font-size: 22px;
 }

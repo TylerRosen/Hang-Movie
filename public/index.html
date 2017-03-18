@@ -2,7 +2,7 @@
   <html>
 
   <head>
-    <title>Hangman (Working Title)</title>
+    <title>Hang Movie</title>
 
     <!-- Links CSS -->
 
@@ -20,14 +20,16 @@
     <div class="container">
 
       <div class="jumbotron">
-        <h1>Hangman</h1>
-        <p>Guess the quote before you run out of guesses</p>
+        <h1>Hang Movie</h1>
+        <p>Guess the movie quote before you run out of guesses</p>
+        <br>
         <a class="btn btn-primary btn-lg" id="start" href="#" role="button">Start Game</a>
       </div>
 
     </div>
 
     <div class="game">
+      <div class="jumbotron">
 
       <h2 id='movie'>Movie: </h2>
       <br><br>
@@ -58,20 +60,22 @@
         </div>
         <br><br>
 
-      </div>
+        <div id="total">
+          <strong>Total Score: </strong>
+        </div>
+        <br><br>
 
-      <div id="total">
-        <strong>Total Score: </strong>
       </div>
-      <br><br>
 
       <div class="scores">
         <a class="btn btn-primary btn-lg" id="score" href="#" role="button">Display Highscore</a>
         <br><br>
         <div id="highScore">Highscore: </div>
+      </div>
+
     </div>
 
-    </div> 
+    </div>
 
   </body>
 
