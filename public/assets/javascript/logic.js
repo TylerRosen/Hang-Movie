@@ -214,6 +214,8 @@ $("#start").on("click", function (e) {
 
         if (chosen.indexOf(" ") >= 0) {
             blanksAndSuccesses.push(" ");
+        
+        }
 
             if (chosen.indexOf("!") >= 0) {
                 blanksAndSuccesses.push("!");
