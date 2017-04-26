@@ -5,7 +5,7 @@ var methodOverride = require("method-override");
 var msyql = require("mysql");
 
 
-var port = 3000;
+var port = process.env.PORT || 3000;
 
 var app = express();
 
@@ -13,7 +13,7 @@ var app = express();
 
 var session = require('express-session');
 //allow sessions
-app.use(session({ secret: 'app', cookie: { maxAge: 6*1000*1000*1000*1000*1000*1000 }, resave: true, saveUninitialized: true}));
+app.use(session({ secret: 'app', cookie: { maxAge: 6 * 1000 * 1000 * 1000 * 1000 * 1000 * 1000 }, resave: true, saveUninitialized: true }));
 // app.use(cookieParser());
 
 // Serve static content for the app from the "public" directory in the application directory.
@@ -40,4 +40,6 @@ app.use("/users", usersController);
 app.use("/scores", scoresController);
 
 
-app.listen(port);
+app.listen(port, function() {
+    console.log('Our app is running on http://localhost:' + port);
+});

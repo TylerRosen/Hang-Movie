@@ -86,6 +86,7 @@ $("#start").on("click", function (e) {
     $(document).keyup(function (e) {
         var keyPressed = e.key; //this is a letter
 
+        console.log("keyPressed " + keyPressed);
         if (event.keyCode === 16) {
 
             // prevent default behaviour
@@ -214,8 +215,6 @@ $("#start").on("click", function (e) {
 
         if (chosen.indexOf(" ") >= 0) {
             blanksAndSuccesses.push(" ");
-        
-        }
 
             if (chosen.indexOf("!") >= 0) {
                 blanksAndSuccesses.push("!");
