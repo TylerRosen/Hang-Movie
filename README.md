@@ -17,5 +17,3 @@ Fancy yourself a film buff? Test your knowledge of famous movie quotes with Hang
   * jQuery
 * Express
 * MySQL
-  
-## Code I'm Proud of:
