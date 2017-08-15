@@ -118,7 +118,7 @@ $("#start").on("click", function (e) {
                 wins++;
 
                 console.log(wins)
-                endRound();
+                startGame();
 
                 if (guesses == 10) {
                     score += 50
@@ -258,6 +258,7 @@ $("#start").on("click", function (e) {
         }
 
     };
+
     // Ends the round
 
     function endRound() {
