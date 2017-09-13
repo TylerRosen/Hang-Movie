@@ -114,16 +114,18 @@ $("#start").on("click", function (e) {
 
             if (initialDisplay.indexOf("_") == -1) {
                 console.log("You win!")
+                // set delay before restarting game
 
                 wins++;
 
                 console.log(wins)
+
                 startGame();
+                // displayBlanks();
 
                 if (guesses == 10) {
                     score += 50
                     $("#scoreGoesHere").html(score);
-                    console.log("hello");
                 } else if (guesses == 9) {
                     score += 45
                     $("#scoreGoesHere").html(score);
@@ -154,6 +156,7 @@ $("#start").on("click", function (e) {
                 }
 
                 endRound();
+                displayBlanks();
             }
 
         } else {
@@ -177,10 +180,13 @@ $("#start").on("click", function (e) {
     // Starts Game
     function startGame() {
 
+        displayBlanks();
+
         //Resets values
         guesses = 10;
         wrongGuesses = [];
         blanksAndSuccesses = [];
+        initialDisplay = "";
 
         // Hides and shows buttons
         $(".container").hide();
@@ -269,9 +275,6 @@ $("#start").on("click", function (e) {
             console.log(losses);
 
             startGame();
-            // displayBlanks();
-
-            console.log(initialDisplay);
         }
 
 
